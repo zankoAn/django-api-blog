@@ -99,7 +99,6 @@ class BaseModelViewSet(viewsets.ModelViewSet):
 
     @extend_schema(
         responses={400: "Object was successfully deleted"},
-        external_docs={"test ": "As"},
     )
     def destroy(self, request, *args, **kwargs):
         try:
@@ -183,8 +182,6 @@ class UserViewSet(BaseModelViewSet):
 
         if self.action == "profile":
             return ProfileSerializer
-
-        print(self.action)
 
     def get_object(self):
         if self.action == "profile":
