@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import NotFound, ParseError, AuthenticationFailed
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from blog.account.models import User, Profile
+from blog.account.models import User, Resume, WorkExperience
 from blog.article.models import Article, Category
 from blog.api.storage_service import S3Uploader
 from blog.api.validators import MediaFileValidatorMixin
@@ -164,21 +164,6 @@ class UpdateArticleSerializer(serializers.ModelSerializer, MediaFileValidatorMix
         return super().update(instance, validated_data)
 
 
-class RetriveUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = (
-            "id",
-            "first_name",
-            "last_name",
-            "username",
-            "email",
-            "is_active",
-            "phone_number",
-        )
-        read_only_fields = ("id",)
-
-
 class CreateUserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(max_length=255, write_only=True)
 
@@ -266,9 +251,18 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ProfileSerializer(serializers.ModelSerializer, MediaFileValidatorMixin):
+
+class RetriveWorkExperienceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Profile
+        model = WorkExperience
+        fields = "__all__"
+        read_only_fields = ("id",)
+
+
+class ResumeSerializer(serializers.ModelSerializer, MediaFileValidatorMixin):
+    work_experiences = RetriveWorkExperienceSerializer(many=True, read_only=True)
+    class Meta:
+        model = Resume
         fields = "__all__"
         read_only_fields = ("id", "user")
 
@@ -294,6 +288,24 @@ class ProfileSerializer(serializers.ModelSerializer, MediaFileValidatorMixin):
             validated_data["avatar"] = file_link
 
         return super().update(instance, validated_data)
+
+
+class RetriveUserSerializer(serializers.ModelSerializer):
+    resume = ResumeSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+            "is_active",
+            "phone_number",
+            "resume",
+        )
+        read_only_fields = ("id",)
 
 
 class LoginSerializer(TokenObtainPairSerializer):

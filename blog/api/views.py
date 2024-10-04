@@ -9,7 +9,7 @@ from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from blog.account.models import Profile, User
+from blog.account.models import Resume, User
 from blog.api.filters import ArticleFilter
 from blog.api.paginations import ArticlePagination, CategoryPagination, UserPagination
 from blog.api.serializers import (
@@ -17,7 +17,7 @@ from blog.api.serializers import (
     CreateCategorySerializer,
     CreateUserSerializer,
     LoginSerializer,
-    ProfileSerializer,
+    ResumeSerializer,
     RetrieveCategorySerializer,
     RetriveArticleSerializer,
     RetriveUserSerializer,
@@ -180,31 +180,31 @@ class UserViewSet(BaseModelViewSet):
         if self.action == "partial_update":
             return UpdateUserSerializer
 
-        if self.action == "profile":
-            return ProfileSerializer
+        if self.action == "resume":
+            return ResumeSerializer
 
     def get_object(self):
-        if self.action == "profile":
+        if self.action == "resume":
             user_id = self.kwargs["pk"]
             try:
-                profile = Profile.objects.get(user=user_id)
-                return profile
-            except Profile.DoesNotExist:
+                resume = Resume.objects.get(user=user_id)
+                return resume
+            except Resume.DoesNotExist:
                 raise Http404
 
         return super().get_object()
 
-    @extend_schema(tags=["Profile"])
+    @extend_schema(tags=["Resume"])
     @action(detail=True, methods=["get", "patch"])
-    def profile(self, request, pk=None):
-        profile = self.get_object()
+    def resume(self, request, pk=None):
+        resume = self.get_object()
 
         if request.method == "GET":
-            serializer = ProfileSerializer(profile)
+            serializer = ResumeSerializer(resume)
             return Response(serializer.data)
 
         elif request.method == "PATCH":
-            serializer = ProfileSerializer(profile, data=request.data, partial=True)
+            serializer = ResumeSerializer(resume, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
             return Response(serializer.data)
