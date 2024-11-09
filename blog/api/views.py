@@ -2,7 +2,7 @@ import base64
 
 from django.http import Http404
 from django_filters import rest_framework as filters
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import BasePermission
@@ -81,6 +81,9 @@ class BaseModelViewSet(viewsets.ModelViewSet):
                 {"error": "Object Not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
+    @extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)]
+    )
     def partial_update(self, request, *args, **kwargs):
         try:
             return super().partial_update(request, *args, **kwargs)
@@ -97,9 +100,7 @@ class BaseModelViewSet(viewsets.ModelViewSet):
                 {"error": "Object Not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
-    @extend_schema(
-        responses={400: "Object was successfully deleted"},
-    )
+    @extend_schema(responses={400: "Object was successfully deleted"})
     def destroy(self, request, *args, **kwargs):
         try:
             super().destroy(request, *args, **kwargs)
