@@ -1,10 +1,10 @@
 from rest_framework import pagination
 
 
-class ArticlePagination(pagination.CursorPagination):
+class ArticlePagination(pagination.PageNumberPagination):
     ordering = "-published"
-    page_size = 6
-    max_page_size = 8
+    page_size = 4
+    max_page_size = 10
     page_size_query_param = "page_size"
 
 
