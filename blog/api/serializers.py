@@ -48,6 +48,8 @@ class RetriveArticleSerializer(serializers.ModelSerializer):
 
 
 class CreateArticleSerializer(serializers.ModelSerializer, MediaFileValidatorMixin):
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Article
         exclude = ("updated", "created")
@@ -88,8 +90,7 @@ class CreateArticleSerializer(serializers.ModelSerializer, MediaFileValidatorMix
         return attrs
 
     def create(self, validated_data):
-        # TODO: User celery to handel the s3 uplaod
-        validated_data["author"] = self.context["request"].user
+        # TODO: Use celery to handel the s3 uplaod
         if cover := validated_data.get("cover"):
             s3 = S3Uploader(bucket_name="cover")
             file_link = s3.upload_file(cover[0].file, cover[0]._name)
