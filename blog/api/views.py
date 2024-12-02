@@ -116,7 +116,12 @@ class BaseModelViewSet(viewsets.ModelViewSet):
 
 
 class ArticleViewSet(BaseModelViewSet):
-    queryset = Article.objects.all().prefetch_related("categories").distinct()
+    queryset = (
+        Article.objects.filter(status=Article.StatusChoices.publish)
+        .prefetch_related("categories")
+        .order_by("published")
+        .distinct()
+    )
     permission_classes = (IsAdminOrAuthor,)
     pagination_class = ArticlePagination
     filterset_class = ArticleFilter
