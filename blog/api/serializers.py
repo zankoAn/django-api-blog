@@ -73,7 +73,7 @@ class CreateArticleSerializer(serializers.ModelSerializer, MediaFileValidatorMix
         if author_id and not User.objects.filter(id=author_id).exists():
             raise NotFound({"error": "Author user does not exist"})
 
-        for category in data.getlist("categories"):
+        for category in data.get("categories"):
             try:
                 Category.objects.get(id=category)
             except ObjectDoesNotExist:
