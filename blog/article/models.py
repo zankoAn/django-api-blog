@@ -101,16 +101,15 @@ class Article(models.Model):
         blank=True,
         verbose_name=lazy_("View count")
     )
-    meta_keywords = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        verbose_name=lazy_("Meta Keywords")
-    )
     is_commentable = models.BooleanField(
         default=True,
         blank=True,
         verbose_name=lazy_("Allow Send Comment")
+    )
+    metadata = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name=lazy_("Metadata")
     )
     created = models.DateTimeField(
         auto_now_add=True,
