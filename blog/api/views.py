@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from blog.account.models import Resume, User
-from blog.api.filters import ArticleFilter
+from blog.api.filters import ArticleFilter, CategoryFilter
 from blog.api.paginations import ArticlePagination, CategoryPagination, UserPagination
 from blog.api.serializers import (
     CreateArticleSerializer,
@@ -161,6 +161,8 @@ class CategoryViewSet(BaseModelViewSet):
     queryset = Category.objects.all()
     permission_classes = (AdminOrStaffCanModify,)
     pagination_class = CategoryPagination
+    filterset_class = CategoryFilter
+    filter_backends = (filters.DjangoFilterBackend,)
     http_method_names = ("get", "post", "patch", "delete")
 
     def get_serializer_class(self):

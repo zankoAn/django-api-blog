@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db.models import Count, F
 from django_filters.rest_framework import BaseInFilter, CharFilter, FilterSet
 
-from blog.article.models import Article
+from blog.article.models import Article, Category
 
 
 class ArticleFilter(FilterSet):
@@ -91,3 +91,11 @@ class ArticleFilter(FilterSet):
             return queryset.filter(**filter_kwargs)
         except Exception:
             return queryset
+
+
+class CategoryFilter(FilterSet):
+    parent = CharFilter(field_name="parent__name", lookup_expr="exact")
+
+    class Meta:
+        model = Category
+        fields = ("parent",)
