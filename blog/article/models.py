@@ -11,6 +11,13 @@ User = get_user_model()
 
 
 class Category(models.Model):
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="children"
+    )
     name = models.CharField(
         max_length=100,
         verbose_name=lazy_("Name")
