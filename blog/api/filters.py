@@ -1,14 +1,20 @@
+from datetime import datetime
+
 from django.contrib.postgres.fields import ArrayField
-from django_filters.rest_framework import CharFilter, FilterSet, DateFilter
+from django.db.models import Count, F
+from django_filters.rest_framework import BaseInFilter, CharFilter, FilterSet
 
 from blog.article.models import Article
 
 
 class ArticleFilter(FilterSet):
     title = CharFilter(field_name="title", lookup_expr="icontains")
-    published_date = DateFilter(
-        field_name="published", input_formats=["%Y-%m-%d"], lookup_expr="exact"
-    )
+    published = CharFilter(field_name="published", method="filter_by_date")
+    parent = CharFilter(field_name="categories__parent__name", lookup_expr="exact")
+    c_type = BaseInFilter(field_name="categories__c_type", lookup_expr="in")
+    categories = CharFilter(method="filter_by_categories")
+    order = CharFilter(label="Order by", method="order_by_field")
+    meta_f = CharFilter(label="Filter by Metadata Field", method="filter_by_metadata")
 
     class Meta:
         model = Article
@@ -16,7 +22,6 @@ class ArticleFilter(FilterSet):
             "title": ["exact"],
             "tags": ["exact"],
             "view_cnt": ["exact", "range"],
-            "categories": ["exact"],
             "published": ["exact"],
             "is_commentable": ["exact"],
             "author": ["exact"],
@@ -28,3 +33,61 @@ class ArticleFilter(FilterSet):
                 "extra": lambda f: {"lookup_expr": "icontains"},
             }
         }
+
+    def filter_by_date(self, queryset, name, value):
+        if not value:
+            return queryset
+        try:
+            parts = value.split("-")
+            if len(parts) == 1:
+                year = parts[0]
+                return queryset.filter(published__year=year)
+            if len(parts) == 2:
+                year, month = parts
+                return queryset.filter(published__year=year, published__month=month)
+            elif len(parts) == 3:
+                date_value = datetime.strptime(value, "%Y-%m-%d")
+                return queryset.filter(published=date_value)
+        except Exception:
+            return queryset
+
+    def filter_by_categories(self, queryset, name, value):
+        """
+        Filter queryset with AND condition on multiple category IDs.
+        """
+        if not value:
+            return queryset
+
+        try:
+            category_ids = value.split(",")
+            return (
+                queryset.filter(categories__id__in=category_ids)
+                .annotate(matched_categories=Count("categories__id", distinct=True))
+                .filter(matched_categories__gte=len(category_ids))
+            )
+        except Exception:
+            return queryset
+
+    def order_by_field(self, queryset, name, value):
+        if not value:
+            return queryset
+
+        if value == "view":
+            return queryset.order_by("-view_cnt")
+
+        try:
+            return queryset.order_by(F(f"metadata__{value}"))
+        except Exception:
+            return queryset
+
+    def filter_by_metadata(self, queryset, name, value):
+        if not value:
+            return queryset
+
+        try:
+            key, val = value.split(":")
+            values = val.split(",")
+            filter_kwargs = {f"metadata__{key}__in": values}
+            return queryset.filter(**filter_kwargs)
+        except Exception:
+            return queryset
