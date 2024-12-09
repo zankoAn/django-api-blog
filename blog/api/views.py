@@ -101,7 +101,23 @@ class BaseModelViewSet(viewsets.ModelViewSet):
                 {"error": "Object Not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
-    @extend_schema(responses={400: "Object was successfully deleted"})
+    @extend_schema(
+        responses = {
+            status.HTTP_202_ACCEPTED: {
+                "type": "object",
+                "properties": {
+                    "msg": {"type":"string", "example": "Object was successfully deleted"}
+                }
+            },
+             status.HTTP_404_NOT_FOUND: {
+                "type": "object",
+                "properties": {
+                    "msg": {"type":"string", "example": "Object Not Found"}
+                }
+            },
+
+        }
+    )
     def destroy(self, request, *args, **kwargs):
         try:
             super().destroy(request, *args, **kwargs)
