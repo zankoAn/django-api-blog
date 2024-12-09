@@ -37,6 +37,7 @@ class Category(models.Model):
     c_type = models.CharField(
         null=True,
         blank=True,
+        max_length=50,
         verbose_name=lazy_("Category Type")
     )
 
@@ -69,8 +70,8 @@ class Article(models.Model):
         verbose_name=lazy_("Categories")
     )
     tags = ArrayField(
-        models.CharField(max_length=20, blank=True, null=True),
-        size=5,
+        models.CharField(max_length=30, blank=True, null=True),
+        size=10,
         blank=True,
         null=True,
         verbose_name=lazy_("Tags"),
@@ -88,7 +89,7 @@ class Article(models.Model):
         verbose_name=lazy_("Slug")
     )
     summary = models.CharField(
-        max_length=200,
+        max_length=350,
         blank=True,
         null=True,
         verbose_name=lazy_("Short Summary")
