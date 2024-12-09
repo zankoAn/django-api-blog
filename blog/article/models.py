@@ -34,6 +34,11 @@ class Category(models.Model):
         null=True,
         verbose_name=lazy_("Description")
     )
+    c_type = models.CharField(
+        null=True,
+        blank=True,
+        verbose_name=lazy_("Category Type")
+    )
 
     def __str__(self):
         return self.name
