@@ -33,6 +33,9 @@ from blog.article.models import Article, Category
 
 
 class BaseModelViewSet(viewsets.ModelViewSet):
+    @extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)]
+    )
     def retrieve(self, request, *args, **kwargs):
         try:
             return super().retrieve(request, *args, **kwargs)
@@ -61,20 +64,22 @@ class BaseModelViewSet(viewsets.ModelViewSet):
             )
 
     @extend_schema(
-        responses = {
+        responses={
             status.HTTP_202_ACCEPTED: {
                 "type": "object",
                 "properties": {
-                    "msg": {"type":"string", "example": "Object was successfully deleted"}
-                }
+                    "msg": {
+                        "type": "string",
+                        "example": "Object was successfully deleted",
+                    }
+                },
             },
-             status.HTTP_404_NOT_FOUND: {
+            status.HTTP_404_NOT_FOUND: {
                 "type": "object",
                 "properties": {
-                    "msg": {"type":"string", "example": "Object Not Found"}
-                }
+                    "msg": {"type": "string", "example": "Object Not Found"}
+                },
             },
-
         }
     )
     def destroy(self, request, *args, **kwargs):
