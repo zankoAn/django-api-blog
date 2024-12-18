@@ -5,5 +5,5 @@
   line-height: 1.75;
   letter-spacing: 0.008em;
   min-height: 200vh;
-  background: linear-gradient(rgb(248 249 251 / 10%), #f8f9fbeb), url("./assets/home/wall-texture.webp");
+  background: linear-gradient(rgba(248, 249, 251, 95%), rgba(248, 249, 251, 50%)), url("./assets/home/wall-texture.webp");
 }
