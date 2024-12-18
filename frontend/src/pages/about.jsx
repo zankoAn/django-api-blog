@@ -69,7 +69,7 @@ function GetContactLogo({ contact }) {
 function AboutMe() {
   let { user_id } = useParams();
   const { isLoading, error, data, progress } = useFetchUser(user_id);
-  const user = data || {};
+  const user = data || { resume: { } };
   window.scrollTo({ top: 50, behavior: "smooth" });
 
   if (isLoading) {
@@ -86,7 +86,7 @@ function AboutMe() {
       <div className="about">
         <header>
           <div className="contacts">
-            {user.resume.contacts.map((contact, index) => (
+            {user.resume?.contacts.map((contact, index) => (
               <span key={index} className="contact">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -109,23 +109,19 @@ function AboutMe() {
           <div className="me">
             <span className="name">{user.username}</span>
             <span className="job">
-              {user.resume.current_position.toUpperCase()}
+              {user.resume?.current_position.toUpperCase()}
             </span>
           </div>
-          <img
-            className="avatar"
-            src={user.resume.avatar}
-            alt=""
-          />
+          <img className="avatar" src={user.resume?.avatar} alt="" />
         </header>
         <div className="summary">
           <h1>SUMMARY</h1>
-          <div>{user.resume.summary}</div>
+          <div>{user.resume?.summary}</div>
         </div>
         <div className="details">
           <div className="experiences">
             <h1>WORK EXPERIENCE</h1>
-            {user.resume.work_experiences.map((work_exp, index) => (
+            {user.resume?.work_experiences.map((work_exp, index) => (
               <div key={index} className="work-exps">
                 <div className="top-head">
                   <span className="position-cmp">
@@ -160,7 +156,7 @@ function AboutMe() {
         <div className="sidebar">
           <div className="skills">
             <h1>SKILLS</h1>
-            {user.resume.skills.map((skill, index) => (
+            {user.resume?.skills.map((skill, index) => (
               <span key={index} className={`skill-${index}`}>
                 {skill}
               </span>
@@ -168,7 +164,7 @@ function AboutMe() {
           </div>
           <div className="soft-skills">
             <h1>SOFT SKILLS</h1>
-            {user.resume.soft_skills.map((soft_skill, index) => (
+            {user.resume?.soft_skills.map((soft_skill, index) => (
               <span key={index} className="soft-skill">
                 {soft_skill}
               </span>
@@ -176,7 +172,7 @@ function AboutMe() {
           </div>
           <div className="social">
             <h1>Social</h1>
-            {user.resume.soft_skills.map((soft_skill, index) => (
+            {user.resume?.soft_skills.map((soft_skill, index) => (
               <span key={index} className="soft-skill">
                 {soft_skill}
               </span>
