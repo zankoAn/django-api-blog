@@ -1,0 +1,25 @@
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: transparent;
+    z-index: 9999;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #56e7dd;
+    transition: width 0.5s ease-in-out;
+}
+
+@keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

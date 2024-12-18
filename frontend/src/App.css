@@ -1,0 +1,9 @@
+.base {
+  display: grid;
+  grid-template-rows: 100px auto;
+  gap: 30px;
+  line-height: 1.75;
+  letter-spacing: 0.008em;
+  min-height: 200vh;
+  background: linear-gradient(rgb(248 249 251 / 10%), #f8f9fbeb), url("./assets/home/wall-texture.webp");
+}

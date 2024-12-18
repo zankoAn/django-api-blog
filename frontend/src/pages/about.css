@@ -1,0 +1,592 @@
+a {
+    text-decoration: none;
+    color: #2b2e45;
+}
+
+.about {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 2fr 1fr;
+    margin-inline: 250px;
+    box-shadow: 2px 4px 32px -14px #dddfef;
+    margin-top: 150px;
+    padding-bottom: 50px;
+    background: #fffcfc;
+}
+
+.rope {
+    width: 2px;
+    height: 150px;
+    background-color: black;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 90px;
+}
+
+.rope::after {
+    content: '🦧';
+    position: absolute;
+    bottom: -65px;
+    left: -37px;
+    border-radius: 50%;
+    z-index: 1;
+    font-size: 50px;
+    animation: swing 2s ease-in-out infinite;
+    transform-origin: top center;
+}
+
+@keyframes swing {
+    0% {
+        transform: rotate(15deg);
+    }
+
+    50% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(15deg);
+    }
+}
+
+header {
+    grid-row: 1 / 1;
+    grid-column: 1 / 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 70px;
+    background-color: #ffd7d7;
+    padding-block: 15px;
+}
+
+header>.contacts {
+    grid-row: 1/1;
+    grid-column: 1/1;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 1fr 1fr;
+    justify-self: end;
+    justify-items: start;
+    direction: ltr;
+    row-gap: 20px;
+    column-gap: 20px;
+    color: #2b2e45;
+}
+
+header>.contacts>.contact {
+    display: flex;
+    column-gap: 15px;
+}
+
+header>.me {
+    grid-row: 1/1;
+    grid-column: 2/2;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-self: center;
+    color: #2e2e45
+}
+
+header>.me>.name {
+    text-transform: capitalize;
+    font-size: 52px;
+    font-weight: bold;
+    text-align: left;
+}
+
+header>.me>.job {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+header>.avatar {
+    grid-row: 1 / 2;
+    height: 200px;
+    width: 190px;
+    border-radius: 50%;
+    margin: 10px 0 20px 10px;
+}
+
+.about>.summary,
+.details>.experiences {
+    color: #4a4c5a;
+    text-align: end;
+    padding: 0 0 10px 30px;
+}
+
+.about>.summary {
+    grid-row: 2/2;
+    position: relative;
+    border-bottom: 3px solid #ffd7d7;
+}
+
+.about>.summary>h1,
+.details>.experiences>h1 {
+    margin-top: 0;
+}
+
+.about>.summary::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: -6px;
+    width: 15px;
+    height: 15px;
+    background-color: #ffb3b3;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.details {
+    grid-row: 3 / 3;
+    grid-column: 1 / 1;
+}
+
+.details>.experiences {
+    border-bottom: 0;
+}
+
+.about>.sidebar {
+    grid-row: 2 / 4;
+    grid-column: 2 / 2;
+    padding-top: 100px;
+}
+
+.about>.sidebar>.skills,
+.about>.sidebar>.soft-skills {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    color: #4a4c5a;
+    border-bottom: 3px solid #ffd7d7;
+    line-height: 1.5;
+    text-align: end;
+    padding: 0 0 30px 50px;
+}
+
+.about>.sidebar>.soft-skills {
+    padding-bottom: 120px;
+}
+
+.about>.sidebar>.skills>span,
+.about>.sidebar>.soft-skills>span {
+    position: relative;
+    padding-left: 40px;
+}
+
+
+.about>.sidebar>.skills::after,
+.about>.sidebar>.soft-skills::after {
+    content: '';
+    position: absolute;
+    right: -9px;
+    bottom: -9px;
+    width: 15px;
+    height: 15px;
+    background-color: #ffb3b3;
+    border-radius: 50%;
+}
+
+.about>.sidebar>.skills>span::before,
+.about>.sidebar>.soft-skills>span::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    background-color: #ffafaf;
+    border-radius: 50%;
+}
+
+
+.about>.sidebar>.social {
+    padding-left: 30px;
+    text-align: end;
+}
+
+
+.details {
+    position: relative;
+}
+
+
+.about>.summary::after,
+.details::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 20px;
+    width: 3px;
+    height: 100%;
+    background-color: #ffd7d7;
+    border-radius: 0;
+}
+
+.work-exps {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.work-exps>.top-head {
+    display: grid;
+    grid-template-rows: 40px 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.work-exps>.top-head>.position-cmp {
+    grid-row: 1 / 1;
+    grid-column: 2 / 2;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-self: end;
+    font-size: 20px;
+    font-weight: 700;
+    color: #464a4e;
+    text-transform: uppercase;
+}
+
+.work-exps>.top-head>.position-cmp>p {
+    font-weight: 400;
+    padding-left: 5px;
+    color: #464a4e
+}
+
+.work-exps>.top-head>.time {
+    grid-row: 2 / 2;
+    grid-column: 2 / 2;
+    justify-self: end;
+    padding-left: 10px;
+    font-size: 14px;
+    color: #f38181;
+}
+
+.work-exps>.top-head>.links {
+    grid-row: 1 / 2;
+    grid-column: 1 / 1;
+    align-self: center;
+    justify-self: center;
+    color: #f38181;
+}
+
+.work-exps>.overview {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 1fr;
+    font-size: 19px;
+    line-height: 40px;
+    letter-spacing: 0.008em;
+}
+
+.work-exps>.overview>.summary {
+    font-size: 15px;
+    line-height: 2rem;
+    color: #4a4c5a;
+    padding-left: 10px;
+    font-weight: 400;
+}
+
+
+.work-exps>.overview>.achievements {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.work-exps>.overview>.achievements>.achievement-title {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #f38181;
+    padding-left: 10px;
+}
+
+.work-exps>.overview>.achievements>.achievement {
+    font-size: 16px;
+    color: #4a4c5a;
+    padding-left: 30px;
+    position: relative;
+    line-height: 1.7rem;
+}
+
+
+.work-exps>.overview>.achievements>.achievement::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    width: 8px;
+    height: 8px;
+    background-color: #ffafaf;
+    border-radius: 50%;
+}
+
+
+
+@media only screen and (min-width: 1201px) and (max-width: 1400px) {
+    .about {
+        margin-inline: 100px;
+    }
+}
+
+@media only screen and (min-width: 681px) and (max-width: 1200px) {
+    .rope {
+        display: none;
+    }
+
+    .about {
+        grid-row: 1/4;
+        margin-inline: 50px;
+        row-gap: 20px;
+        grid-template-rows: auto;
+    }
+
+    .about>header {
+        grid-row: 1/1;
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .about>header>.contacts {
+        grid-column: 1 / 1;
+        grid-row: 2 / 2;
+        grid-template-columns: 1fr 1fr 1fr;
+        font-size: 12px;
+        row-gap: 10px;
+        column-gap: 10px;
+        padding-right: 20px;
+        align-self: center;
+        justify-self: center;
+    }
+
+    .about>header>.contacts>.contact>svg {
+        height: 18px;
+        width: 18px;
+    }
+
+    .about>header>.me {
+        grid-row: 1 / 1;
+        grid-column: 1 / 4;
+        justify-self: center;
+        text-align: center;
+        align-self: start;
+    }
+
+    .about>header>.me>.job,
+    .about>header>.me>.name {
+        font-size: 16px;
+    }
+
+    .about>header>.avatar {
+        grid-row: 1 / 1;
+        grid-column: 3/3;
+        width: 150px;
+        height: 150px;
+        justify-self: start;
+    }
+
+    .about>.summary {
+        grid-row: 2/2;
+        grid-column: 1/3;
+    }
+
+    .about>.summary>h1 {
+        font-size: 22px;
+        margin-bottom: 0;
+        padding-left: 10px;
+    }
+
+    .about>.summary>div {
+        padding: 0 20px 20px;
+        font-size: 12px;
+    }
+
+    .details {
+        grid-row: 3 / 4;
+        grid-column: 1 / 1;
+        padding-right: 10px;
+    }
+
+    .experiences {
+        grid-row: 3/3;
+        padding-left: 15px !important;
+    }
+
+    .experiences>h1 {
+        font-size: 18px;
+    }
+
+    .experiences>.work-exps>.top-head {
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .experiences>.work-exps>.top-head>.position-cmp {
+        font-size: 14px;
+    }
+
+    .work-exps>.overview>.achievements>.achievement,
+    .work-exps>.overview>.summary {
+        font-size: 12px;
+    }
+
+    .about>.sidebar {
+        grid-row: 3 / 3;
+        padding-top: 0;
+    }
+
+    .about>.sidebar>.skills {
+        padding-left: 0px;
+        row-gap: 10px;
+        font-size: 12px;
+    }
+
+    .about>.sidebar>.skills>h1 {
+        grid-row: 1/1;
+        grid-column: 1/3;
+        padding-left: 10px;
+        font-size: 18px;
+    }
+
+    .about>.summary::after,
+    .about>.sidebar>.skills::after,
+    .about>.sidebar>.soft-skills,
+    .about>.sidebar>.social {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 680px) {
+    .rope {
+        display: none;
+    }
+
+    .about {
+        grid-row: 1/4;
+        margin-inline: 10px;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+    }
+
+    .about>header {
+        grid-template-rows: 70px 120px;
+        padding-inline: 10px;
+    }
+
+    .about>header>.contacts {
+        grid-row: 1 / 3;
+        grid-column: 2 / 2;
+        grid-template-columns: 1fr;
+        row-gap: 15px !important;
+        align-self: start;
+    }
+
+    .about>header>.contacts>.contact {
+        font-size: 12px;
+    }
+
+    .about>header>.contacts>.contact>svg {
+        height: 18px;
+        width: 18px;
+    }
+
+    .about>header>.me {
+        grid-row: 2 / 2;
+        grid-column: 1 / 1;
+        justify-self: end;
+        align-self: end;
+        text-align: end;
+    }
+
+    .about>header>.me>.job,
+    .about>header>.me>.name {
+        font-size: 12px;
+    }
+
+    .about>header>.avatar {
+        grid-row: 1 / 1;
+        grid-column: 1/1;
+        width: 150px;
+        height: 150px;
+        margin-top: 0;
+    }
+
+    .about>.summary {
+        margin-top: 20px;
+        grid-row: 2/2;
+        grid-column: 1/3;
+        padding: 0;
+    }
+
+    .about>.summary>h1 {
+        font-size: 18px;
+        margin-bottom: 0;
+        padding-left: 10px;
+    }
+
+    .about>.summary>div {
+        padding: 0 20px 20px;
+        font-size: 12px;
+    }
+
+    .about>.sidebar {
+        grid-row: 3 / 3;
+        padding-top: 0;
+        border-bottom: 3px solid #ffd7d7;
+    }
+
+    .about>.sidebar>.skills {
+        padding-left: 0px;
+        border: none;
+        row-gap: 10px;
+        font-size: 12px;
+    }
+
+    .about>.sidebar>.skills>h1 {
+        grid-row: 1/1;
+        grid-column: 1/3;
+        padding-left: 10px !important;
+        font-size: 18px;
+    }
+
+    .about>.summary::after,
+    .about>.sidebar>.skills::after,
+    .about>.sidebar>.soft-skills,
+    .about>.sidebar>.social {
+        display: none;
+    }
+
+    .details {
+        grid-row: 4 / 4;
+        grid-column: 1 / 3;
+        margin-top: 20px;
+    }
+
+    .experiences {
+        padding-left: 10px !important;
+    }
+
+    .experiences>h1 {
+        font-size: 18px;
+    }
+
+    .experiences>.work-exps {
+        font-size: 14px;
+    }
+
+    .experiences>.work-exps>.top-head {
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .experiences>.work-exps>.top-head>.position-cmp {
+        font-size: 14px;
+    }
+
+    .work-exps>.overview>.achievements>.achievement,
+    .work-exps>.overview>.summary {
+        font-size: 12px;
+    }
+}

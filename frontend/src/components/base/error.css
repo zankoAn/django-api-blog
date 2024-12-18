@@ -1,0 +1,28 @@
+.error-container {
+  grid-row: 2 / 2;
+  justify-self: center;
+  align-self: center;
+  padding: 20px;
+  margin-top: 100px;
+  border-radius: 5px;
+  border: 1px solid #ff4d4d;
+  background-color: #ffe6e6;
+  text-align: center;
+}
+
+.error-container h2 {
+  color: #ff4d4d;
+}
+
+.error-container button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.error-container button:hover {
+  background-color: #e60000;
+}
