@@ -59,7 +59,7 @@ class ArticleFilter(FilterSet):
 
     def filter_by_categories(self, queryset, name, value):
         """
-        Filter queryset with AND condition on multiple category IDs.
+        Filters the queryset to include records that match all unique category IDs in the input.
         """
         if not value:
             return queryset
