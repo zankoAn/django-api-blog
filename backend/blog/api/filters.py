@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.contrib.postgres.fields import ArrayField
 from django.db.models import Count, F
-from django_filters.rest_framework import BaseInFilter, CharFilter, FilterSet
+from django_filters.rest_framework import CharFilter, FilterSet
 
 from blog.article.models import Article, Category
 
@@ -11,7 +11,7 @@ class ArticleFilter(FilterSet):
     title = CharFilter(field_name="title", lookup_expr="icontains")
     published = CharFilter(field_name="published", method="filter_by_date")
     parent = CharFilter(field_name="categories__parent__name", lookup_expr="exact")
-    c_type = BaseInFilter(field_name="categories__c_type", lookup_expr="in")
+    c_type = CharFilter(method="filter_by_category_type", label="Category Type")
     categories = CharFilter(method="filter_by_categories")
     order = CharFilter(label="Order by", method="order_by_field")
     meta_f = CharFilter(label="Filter by Metadata Field", method="filter_by_metadata")
@@ -50,6 +50,12 @@ class ArticleFilter(FilterSet):
                 return queryset.filter(published=date_value)
         except Exception:
             return queryset
+
+    def filter_by_category_type(self, queryset, name, value):
+        if value:
+            category_ids = value.split(",")
+            return queryset.filter(categories__id__in=category_ids)
+        return queryset
 
     def filter_by_categories(self, queryset, name, value):
         """
