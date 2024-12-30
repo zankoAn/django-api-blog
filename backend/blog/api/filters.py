@@ -30,7 +30,7 @@ class ArticleFilter(FilterSet):
         filter_overrides = {
             ArrayField: {
                 "filter_class": CharFilter,
-                "extra": lambda f: {"lookup_expr": "icontains"},
+                "extra": lambda _: {"lookup_expr": "icontains"},
             }
         }
 
@@ -52,10 +52,14 @@ class ArticleFilter(FilterSet):
             return queryset
 
     def filter_by_category_type(self, queryset, name, value):
-        if value:
+        if not value:
+            return queryset
+
+        try:
             category_ids = value.split(",")
             return queryset.filter(categories__id__in=category_ids)
-        return queryset
+        except ValueError:
+            return queryset
 
     def filter_by_categories(self, queryset, name, value):
         """
