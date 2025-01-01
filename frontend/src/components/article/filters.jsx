@@ -162,16 +162,14 @@ export function MovieFilters({ articles }) {
             {categories.map((category, index) => (
               <div
                 key={index}
-                onClick={() =>
-                  handleCountryFilterClick(String(category.c_type))
-                }
+                onClick={() => handleCountryFilterClick(String(category.id))}
                 className="checkbox-container"
               >
                 <span
                   key={index}
                   style={{
                     backgroundColor: selected_countries.includes(
-                      String(category.c_type)
+                      String(category.id)
                     )
                       ? "#ff9292"
                       : "#f0f0f0",
