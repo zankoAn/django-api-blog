@@ -10,11 +10,11 @@ from blog.article.models import Article, Category
 class ArticleFilter(FilterSet):
     title = CharFilter(field_name="title", lookup_expr="icontains")
     published = CharFilter(field_name="published", method="filter_by_date")
-    parent = CharFilter(field_name="categories__parent__name", lookup_expr="exact")
     c_type = CharFilter(method="filter_by_category_type", label="Category Type")
     categories = CharFilter(method="filter_by_categories")
     order = CharFilter(label="Order by", method="order_by_field")
     meta_f = CharFilter(label="Filter by Metadata Field", method="filter_by_metadata")
+    category_slug = CharFilter(field_name="categories__slug", lookup_expr="exact")
 
     class Meta:
         model = Article
