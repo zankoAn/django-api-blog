@@ -270,7 +270,11 @@ export function BookFilters({ books }) {
     queryParameters.get("tags") ? queryParameters.get("tags").split(",") : []
   );
 
-  const authors = [...new Set(books.map((book) => book.metadata.author))];
+  const category_param = { parent: "book-authors", page_size: 20 };
+  const { isPending, error, data, progress } =
+    useFetchCategories(category_param);
+
+  const authors = data?.results || [];
   const uniqueTags = [...new Set(books.flatMap((article) => article.tags))];
 
   // Event handlers
@@ -283,7 +287,7 @@ export function BookFilters({ books }) {
       }
     });
   };
-  const handleCategoryFilterClick = (filter) => {
+  const handleAuthorFilterClick = (filter) => {
     setSelectedAuthors((prevSelectedFilters) => {
       if (prevSelectedFilters.includes(filter)) {
         return prevSelectedFilters.filter((item) => item !== filter);
@@ -298,9 +302,7 @@ export function BookFilters({ books }) {
     const tagQuery =
       selected_tags.length > 0 ? `tags=${selected_tags.join(",")}` : "";
     const authorQuery =
-      selected_authors.length > 0
-        ? `meta_f=author:${selected_authors.join(",")}`
-        : "";
+      selected_authors.length > 0 ? `parent=${selected_authors.join(",")}` : "";
     return [tagQuery, authorQuery].filter(Boolean).join("&");
   };
 
@@ -334,6 +336,9 @@ export function BookFilters({ books }) {
         <span>نمایش فیلتر ها</span>
       </div>
       <div className="filters">
+        {isPending ||
+          (isPendingC && <LoadingBar progress={progress || progressC} />)}
+        {error || (errorC && <ErrorMsg message={error.message} />)}
         <div className="categories">
           <hr></hr>
           <h1>انتخاب نویسنده</h1>
@@ -341,19 +346,19 @@ export function BookFilters({ books }) {
             {authors.map((author, index) => (
               <div
                 key={index}
-                onClick={() => handleCategoryFilterClick(author)}
+                onClick={() => handleAuthorFilterClick(author.id)}
                 className="checkbox-container"
               >
                 <span
                   key={index}
                   style={{
-                    backgroundColor: selected_authors.includes(author)
+                    backgroundColor: selected_authors.includes(author.id)
                       ? "#ff9292"
                       : "#f0f0f0",
                   }}
                   className="checkmark"
                 ></span>
-                <span>{author}</span>
+                <span>{author.name}</span>
               </div>
             ))}
           </div>
