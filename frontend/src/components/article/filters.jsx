@@ -13,7 +13,7 @@ export function MovieFilters({ articles }) {
   const navigate = useNavigate();
   const [queryParameters] = useSearchParams();
   const genre_param = { parent: "movies", page_size: 20 };
-  const category_param = { parent: "movies-country-category", page_size: 20 };
+  const category_param = { parent: "country-categories", page_size: 20 };
   const { isPending, error, data, progress } = useFetchCategories(genre_param);
   const {
     isPending: isPendingC,
