@@ -140,7 +140,7 @@ function Novels() {
                   <span className="title">{book.title}</span>
                   {Object.keys(metadataTranslation).map(
                     (key) =>
-                      book.metadata[key] !== undefined && (
+                      book.metadata?.[key] !== undefined && (
                         <span className="metadata" key={key}>
                           <span className="key">
                             {metadataTranslation[key]}:
