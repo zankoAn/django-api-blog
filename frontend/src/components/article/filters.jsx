@@ -14,9 +14,9 @@ export function MovieFilters({ articles }) {
   const [queryParameters] = useSearchParams();
   const genre_param = { parent: "movies", page_size: 20 };
   const category_param = { parent: "country-categories", page_size: 20 };
-  const { isPending, error, data, progress } = useFetchCategories(genre_param);
+  const { isLoading, error, data, progress } = useFetchCategories(genre_param);
   const {
-    isPending: isPendingC,
+    isPending: isLoadingC,
     error: errorC,
     data: dataC,
     progress: progressC,
@@ -46,6 +46,14 @@ export function MovieFilters({ articles }) {
   const [selected_tags, setSelectedTags] = useState(
     queryParameters.get("tags") ? queryParameters.get("tags").split(",") : []
   );
+
+  if (isLoading || isLoadingC) {
+    return <LoadingBar progress={progress || progressC} />;
+  }
+
+  if (error || errorC) {
+    return <ErrorMsg message={error.message} />;
+  }
 
   const genres = data?.results || [];
   const categories = dataC?.results || [];
@@ -152,9 +160,6 @@ export function MovieFilters({ articles }) {
         <span>نمایش فیلتر ها</span>
       </div>
       <div className="filters">
-        {isPending ||
-          (isPendingC && <LoadingBar progress={progress || progressC} />)}
-        {error || (errorC && <ErrorMsg message={error.message} />)}
         <div className="categories">
           <hr></hr>
           <h1>انتخاب کشور</h1>
@@ -271,8 +276,16 @@ export function BookFilters({ books }) {
   );
 
   const category_param = { parent: "book-authors", page_size: 20 };
-  const { isPending, error, data, progress } =
+  const { isLoading, error, data, progress } =
     useFetchCategories(category_param);
+
+  if (isLoading) {
+    return <LoadingBar progress={progress} />;
+  }
+
+  if (error) {
+    return <ErrorMsg message={error.message} />;
+  }
 
   const authors = data?.results || [];
   const uniqueTags = [...new Set(books.flatMap((article) => article.tags))];
@@ -336,9 +349,6 @@ export function BookFilters({ books }) {
         <span>نمایش فیلتر ها</span>
       </div>
       <div className="filters">
-        {isPending ||
-          (isPendingC && <LoadingBar progress={progress || progressC} />)}
-        {error || (errorC && <ErrorMsg message={error.message} />)}
         <div className="categories">
           <hr></hr>
           <h1>انتخاب نویسنده</h1>
