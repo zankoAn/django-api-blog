@@ -12,7 +12,7 @@ import "./movies.css";
 
 function Movies() {
   const { isLoading, error, data, progress } = useFetchArticles({
-    parent: "movies",
+    category_slug: "movies",
     order_by: "view_cnt",
     page_size: 5,
   });

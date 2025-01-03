@@ -42,7 +42,7 @@ const LoadCover = ({ book }) => {
 
 function Novels() {
   const { isLoading, error, data, progress } = useFetchArticles({
-    c_type: "books",
+    category_slug: "books",
     page_size: 15,
     order_by: "ignore_position",
   });
