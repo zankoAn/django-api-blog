@@ -1,5 +1,8 @@
 **/__pycache__/
 __pypackages__/
+*_versions
+*.pyc
+.vscode
 
 # Unit test / coverage reports
 htmlcov/
@@ -7,9 +10,13 @@ htmlcov/
 .pytest_cache/
 
 # Environments
+/venv
 .venv
 .env
 
 # Editor
 .vscode
 .ruff_cache
+
+# FrontEnd
+**/node_modules
