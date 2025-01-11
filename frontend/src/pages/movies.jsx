@@ -34,14 +34,16 @@ function Movies() {
       </section>
       <div className="movie-content">
         <MovieFilters articles={articles} />
-        <div className="posts">
-          {articles.map((article, index) => (
-            <div className="articles-wrapper" key={index}>
-              <CardArticle article={article} />
-            </div>
-          ))}
+        <div className="posts-container">
+          <div className="posts">
+            {articles.map((article, index) => (
+              <div className="articles-wrapper" key={index}>
+                <CardArticle article={article} />
+              </div>
+            ))}
+          </div>
+          <Pagination totalArticles={totalArticles} perPage={5} />
         </div>
-        <Pagination totalArticles={totalArticles} perPage={5} />
       </div>
     </>
   );
