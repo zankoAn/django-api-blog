@@ -14,7 +14,7 @@ footer {
 .waves {
     grid-row: 1/4;
     grid-column: 1/4;
-    margin-top: -400px;
+    margin-top: -380px;
 }
 
 @keyframes wave-animation {
