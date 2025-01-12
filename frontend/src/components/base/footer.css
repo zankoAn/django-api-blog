@@ -2,19 +2,24 @@
 footer {
     grid-row: end;
     display: grid;
+    margin-top: 300px;
+}
+
+footer>.items-container {
+    display: grid;
     background-color: #1f2130;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr;
-    min-height: 100px;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
     justify-items: center;
-    margin-top: 600px;
+    min-height: 300px;
 }
 
 /* Waves */
-.waves {
-    grid-row: 1/4;
-    grid-column: 1/4;
-    margin-top: -380px;
+footer>.items-container>.waves {
+    grid-row: 1/1;
+    grid-column: 1/end;
+    margin-top: -20px;
+    background: linear-gradient(to top, #1f2130 10%, #ff7474 20%, #fbeec5 50%, #f4f4f5 100%);
 }
 
 @keyframes wave-animation {
@@ -28,26 +33,12 @@ footer {
 }
 
 
-@media only screen and (min-width: 481px) and (max-width: 800px) {
-
-    /* Waves */
-    .waves {
-        margin-top: -190px;
-    }
-}
-
-@media only screen and (max-width: 480px) {
-
-    /* Footer */
+@media only screen and (min-width: 0px) and (max-width: 480px) {
     footer {
-        grid-template-rows: 300px 450px 300px 100px;
-        grid-template-columns: 1fr;
+        overflow-x: hidden;
     }
 
-    /* Waves */
-    footer>.waves {
-        grid-row: 1/1;
-        grid-column: 1/1;
-        margin-top: -70px;
+    footer>.items-container>.waves {
+        width: 800px;
     }
 }
