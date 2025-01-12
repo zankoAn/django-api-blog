@@ -54,7 +54,6 @@
 .novel-content>.filters {
     grid-row: 1/1;
     row-gap: 20px;
-    min-width: 1500px;
     margin-inline: 50px;
     padding: 20px 0 30px 0;
 }

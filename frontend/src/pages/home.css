@@ -11,7 +11,7 @@
 
 .top-header-card.home>.heading {
     align-items: center;
-    width: 1300px;
+    width: 1200px;
     position: relative;
     justify-items: center;
     display: grid;
@@ -542,7 +542,7 @@
 
     .top-header-card.home>.heading>#t3 {
         top: 300px;
-        right: 450px;
+        right: 650px;
         transform: rotate(380deg);
     }
 
