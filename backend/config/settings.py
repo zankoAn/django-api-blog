@@ -10,7 +10,6 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
 
-INTERNAL_IPS = ["127.0.0.1"]
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 
@@ -37,7 +36,6 @@ INSTALLED_APPS = [
     "blog.account",
     # 3rd party
     "rest_framework",
-    "debug_toolbar",
     "drf_spectacular",
     "rest_framework_simplejwt",
     "django_filters",
@@ -53,7 +51,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -157,3 +154,9 @@ SPECTACULAR_SETTINGS = {
     },
     "SCHEMA_PATH_PREFIX": "/api/v[0-9]/",
 }
+if DEBUG:
+    DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda request: True}
+    DEV_MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+    DEV_APPS = ["debug_toolbar"]
+    INSTALLED_APPS += DEV_APPS
+    MIDDLEWARE += DEV_MIDDLEWARE
