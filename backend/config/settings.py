@@ -95,7 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication", # TODO: Remove in production
         "rest_framework_simplejwt.authentication.JWTAuthentication"
     ],
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
@@ -160,3 +159,6 @@ if DEBUG:
     DEV_APPS = ["debug_toolbar"]
     INSTALLED_APPS += DEV_APPS
     MIDDLEWARE += DEV_MIDDLEWARE
+    REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"].insert(
+        0, "rest_framework.authentication.SessionAuthentication"
+    )
