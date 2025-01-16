@@ -8,6 +8,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "")
 DEBUG = False if os.getenv("DEBUG", "False") == "False" else True
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
 
 INTERNAL_IPS = ["127.0.0.1"]
 ROOT_URLCONF = "config.urls"
@@ -15,11 +16,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Tehran"
-
 USE_I18N = True
 USE_TZ = True
 SITE_ID = 1
-
 
 INSTALLED_APPS = [
     # Defaul
@@ -42,11 +41,13 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "rest_framework_simplejwt",
     "django_filters",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
