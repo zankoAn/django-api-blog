@@ -1,21 +1,13 @@
 import os
-import environ
-
 from datetime import timedelta
 from pathlib import Path
 
-
-env = environ.Env(DEBUG=(bool, False))
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(Path.joinpath(BASE_DIR, ".env"))
 
 SECRET_KEY = os.getenv("SECRET_KEY", "")
 DEBUG = False if os.getenv("DEBUG", "False") == "False" else True
-
-ALLOWED_HOSTS = ["*"]
-
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1", "http://localhost"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
 
 INTERNAL_IPS = ["127.0.0.1"]
 ROOT_URLCONF = "config.urls"
