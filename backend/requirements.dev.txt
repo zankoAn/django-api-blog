@@ -1,0 +1,5 @@
+pytest==8.2.2
+django-stubs==5.1.1
+django-stubs-ext==5.1.1
+django-debug-toolbar==4.4.2
+ruff==0.4.9
