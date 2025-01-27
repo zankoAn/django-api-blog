@@ -78,15 +78,20 @@ class ArticleFilter(FilterSet):
         except Exception:
             return queryset
 
-    def order_by_field(self, queryset, name, value):
-        if not value:
+    def order_by_field(self, queryset, name, key):
+        if not key:
             return queryset
 
-        if value == "view":
+        if key == "view":
             return queryset.order_by("-view_cnt")
 
         try:
-            return queryset.order_by(F(f"metadata__{value}"))
+            metadata_key = queryset.filter(
+                metadata__isnull=False, metadata__has_key=key
+            )
+            if metadata_key:
+                return queryset.order_by(f"metadata__{key}")
+            return queryset
         except Exception:
             return queryset
 
