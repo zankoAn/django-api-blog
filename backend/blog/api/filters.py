@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.contrib.postgres.fields import ArrayField
-from django.db.models import Count, F
+from django.db.models import Count
 from django_filters.rest_framework import CharFilter, FilterSet
 
 from blog.article.models import Article, Category
