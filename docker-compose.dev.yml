@@ -8,6 +8,8 @@ services:
       - db/.env
     networks:
       - blog_net
+    volumes:
+      - ./db/init/:/docker-entrypoint-initdb.d/
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
       interval: 7s
