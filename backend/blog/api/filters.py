@@ -48,6 +48,8 @@ class ArticleFilter(FilterSet):
             elif len(parts) == 3:
                 date_value = datetime.strptime(value, "%Y-%m-%d")
                 return queryset.filter(published=date_value)
+            else:
+                return queryset
         except Exception:
             return queryset
 
