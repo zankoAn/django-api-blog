@@ -3,13 +3,11 @@ services:
     image: postgres:alpine
     container_name: db_blog
     restart: unless-stopped
+    env_file:
+      - .env
+      - db/.env
     networks:
       - blog_net
-    env_file: backend/.env
-    environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
       interval: 7s
@@ -19,7 +17,9 @@ services:
   backend:
     build: backend/
     container_name: backend_blog
-    env_file: backend/.env
+    env_file:
+      - .env
+      - backend/.env
     restart: unless-stopped
     command: >
       sh -c "
