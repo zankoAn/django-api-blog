@@ -15,6 +15,7 @@ init_user_and_db() {
     \c "$DB_NAME";
     CREATE SCHEMA "$DB_SCHEMA_NAME";
     GRANT ALL PRIVILEGES ON SCHEMA "$DB_SCHEMA_NAME" TO "$DB_USER";
+    ALTER ROLE "$DB_USER" SET search_path TO "$DB_SCHEMA_NAME", public;
 EOSQL
 }
 
